@@ -10,14 +10,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements file first to exploit Docker layer caching
-COPY Requirements.txt .
+COPY requirements.txt .
 
 # Install dependencies and download the spaCy model
-RUN pip install --no-cache-dir -r Requirements.txt && \
+RUN pip install --no-cache-dir -r requirements.txt && \
     python -m spacy download en_core_web_sm
 
-# Copy the rest of the application code
-COPY app.py .
+# Copy the main application file (Updated from app.py to main.py)
+COPY main.py .
 
 # Expose the standard Gradio port
 EXPOSE 7860
@@ -26,5 +26,5 @@ EXPOSE 7860
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-# Command to run the application
-CMD ["python", "app.py"]
+# Command to run the application (Updated from app.py to main.py)
+CMD ["python", "main.py"]
